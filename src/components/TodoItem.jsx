@@ -1,5 +1,5 @@
 import './TodoItem.css'
-import React from 'react'
+import React, { memo } from 'react'
 
 const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
   const onChangeCheckBox = () => {
@@ -20,4 +20,10 @@ const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
   )
 }
 
-export default TodoItem
+export default memo(TodoItem, (prevProps, nextProps) => {
+  if (prevProps.id !== nextProps.id) return false
+  if (prevProps.isDone !== nextProps.isDone) return false
+  if (prevProps.content !== nextProps.content) return false
+
+  return true
+})
